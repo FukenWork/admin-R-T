@@ -18,7 +18,7 @@ axios.interceptors.response.use(
     return response.data
   },
   err => {
-    console.log(err);
+    console.log(err.response);
     if (err.response) {
       switch (err.response.status) {
         case 401:
@@ -26,6 +26,8 @@ axios.interceptors.response.use(
         case 400:
           return message.error('参数错误')
       }
+    } else {
+      message.error('服务器错误')
     }
     return Promise.reject(err)
   })

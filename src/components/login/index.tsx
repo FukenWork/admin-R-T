@@ -1,13 +1,11 @@
 import * as React from 'react'
-import './index.css'
+import './index.less'
 import { Form, Input, Button, Checkbox, message } from 'antd'
 import { userService } from '../../services/user.services'
 import { UserInfo } from '../../redux/types'
 import StringName from '../../common/string-name'
 import { connect } from 'react-redux'
 import * as actions from '../../redux/actions/index'
-
-
 
 interface IState {
   num: string
@@ -23,16 +21,19 @@ class LoginComponent extends React.Component<IProps, IState> {
   }
   onFinish = async (value: any) => {
     const data: any = await userService.login(value.username, value.password);
-    let userInfo: UserInfo = {
-      username: data.username,
-      id: data.id,
-      roleId: data.roleId,
+    console.log(data)
+    if (data) {
+      let userInfo: UserInfo = {
+        username: data.username,
+        id: data.id,
+        roleId: data.roleId,
+      }
+      message.success('登录成功')
+      localStorage.setItem(StringName.USER_INFO, JSON.stringify(userInfo as any));
+      // 路由跳转
+      this.props.history.replace('/');
+      this.props.saveuserInfo(userInfo);
     }
-    message.success('登录成功')
-    localStorage.setItem(StringName.USER_INFO, JSON.stringify(userInfo as any));
-    // 路由跳转
-    this.props.history.replace('/');
-    this.props.saveuserInfo(userInfo);
   }
   onFinishFailed = () => { }
   render() {
