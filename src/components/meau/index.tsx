@@ -11,9 +11,7 @@ export default class MenuComponent extends React.Component {
       // 判断是否存在子路由
       if (item.children) {
         return <SubMenu key={item.path} title={
-          <span>
-            <span onClick={this.handleRoute(item)}>{item.routerName}</span>
-          </span>
+          <span onClick={this.handleRoute}>{item.routerName}</span>
         }>
           {this.router(item.children)}
         </SubMenu>

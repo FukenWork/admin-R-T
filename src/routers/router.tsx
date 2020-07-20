@@ -1,4 +1,4 @@
-import *as React from 'react'
+import * as React from 'react'
 import { Route, HashRouter, Switch } from 'react-router-dom';
 import App from '../App';
 import LoginComponent from '../components/login/index';
